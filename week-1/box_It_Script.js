@@ -78,6 +78,14 @@ function boxIt (array){
     }
 }
 
+// D O E S N ' T  W O R K  Y E T.
+// let userInput = [];
+// for(let i = 2; i < process.argv.length; i++){
+//     userInput += process[i];
+// };
+// console.log(boxIt(userInput));
+
+// --------- T E S T ------------
 
 // console.log(drawLine(20));
 // console.log(drawTopBorder(20));
@@ -86,3 +94,4 @@ function boxIt (array){
 // console.log(drawBarsAround('My name is Pavel:)'));
 console.log(boxIt(['Jon Snow','Daenerys Targaryen','Cersei Lannister','Tyrion Lannister','Sansa Stark',
 'Robert Baratheon', 'Theon Greyjoy','Khal Drogo']));
+
