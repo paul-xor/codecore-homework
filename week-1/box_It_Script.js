@@ -79,11 +79,12 @@ function boxIt (array){
 }
 
 // D O E S N ' T  W O R K  Y E T.
-// let userInput = [];
-// for(let i = 2; i < process.argv.length; i++){
-//     userInput += process[i];
-// };
-// console.log(boxIt(userInput));
+let userInput = [];
+for(let i = 2; i < process.argv.length; i++){
+    userInput.push(process.argv[i]);
+    //console.log (userInput);
+};
+console.log(boxIt(userInput));
 
 // --------- T E S T ------------
 
@@ -92,6 +93,5 @@ function boxIt (array){
 // console.log(drawMiddleBorder(20));
 // console.log(drawBottomBorder(20));
 // console.log(drawBarsAround('My name is Pavel:)'));
-console.log(boxIt(['Jon Snow','Daenerys Targaryen','Cersei Lannister','Tyrion Lannister','Sansa Stark',
-'Robert Baratheon', 'Theon Greyjoy','Khal Drogo']));
-
+// console.log(boxIt(['Jon Snow','Daenerys Targaryen','Cersei Lannister','Tyrion Lannister','Sansa Stark',
+// 'Robert Baratheon', 'Theon Greyjoy','Khal Drogo']));
