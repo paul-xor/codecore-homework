@@ -9,30 +9,35 @@
 // 	3 + + + x +
 // 	4 + + + + +
 // }
-	
 
-let log = console.log();
 
 class Turtle {
 	constructor(x,y){
 		this.x = x;
 		this.y = y;
 		
-		let north,west,south = false;
-		let east = true;
+		get position(){
+			return `${this.x},${this.y}`;
+		}
+
+		this.direction = 0;
 		let track = [];					//need to store turtle track
 	}
 	
 	forward(n){
-		if(Turtle.north){
-			this.y -= n;
-		}else if(Turtle.east){
-			this.x += n;
-		}else if(Turtle.west){
-			this.x -= n;
-		}else if(Turtle.south){
-			this.y += n;
-		}
+		switch(this.direction) {
+    case 90:
+        this.y -= n;
+        break;
+    case 180:
+        this.x -= n;
+        break;
+    case 270:
+        this.y += n;
+        break;
+
+    default: // 0
+        this.x += n;
 	}
 	
 	right(){
@@ -45,7 +50,6 @@ class Turtle {
 
 };
 
-const flash = new Turtle(0,0).forward(2);
-log(flash.constructor.toString());
+const flash = new Turtle(0,0);
 
-
+console.log(flash.)
