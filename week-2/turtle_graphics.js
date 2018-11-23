@@ -16,7 +16,7 @@ class Turtle {
 		this.x = x;
 		this.y = y;
 		
-		get position(){
+		get getPosition(){
 			return `${this.x},${this.y}`;
 		}
 
@@ -52,4 +52,4 @@ class Turtle {
 
 const flash = new Turtle(0,0);
 
-console.log(flash.)
+console.log(flash.getPosition);
