@@ -3,7 +3,7 @@
 //    0 1 2 3 4         
 // 	0 🐢 + + o +
 // 	1 + + + + +
-// 	2 + + + + +
+// 	2 + + + o +
 // 	3 + + + x +
 // 	4 + + + + +
 // }
@@ -38,7 +38,42 @@ class Turtle {
             default: // 0
             return this.x = rangeCheckPlus(this.x,n);
         }
-	}
+    }
+
+    right () {
+
+        switch(this.dir) {
+            case 0:
+                this.dir = 270;
+                break;
+            case 90:
+                this.dir = 0;
+                break;
+            case 180:
+                this.dir = 90;
+                break;
+            case 270:
+                this.dir = 180;
+                break;
+        }
+    }
+
+    left () {
+        switch(this.dir) {
+            case 0:
+                this.dir = 90;
+                break;
+            case 90:
+                this.dir = 180;
+                break;
+            case 180:
+                this.dir = 270;
+                break;
+            case 270:
+                this.dir = 0;
+                break;
+        }
+    }
 
 };
 
@@ -51,7 +86,7 @@ function rangeCheckMinus (start,next){
     return (0 <= start - next && start - next < fieldRange) ? start - next : 'Out Of Range!'
 }
 
-// Recommended approach for variable setter x
+// variable setter x
 Object.defineProperty(Turtle, 'x', {
     value: 0,
     writable: true
@@ -71,15 +106,31 @@ Object.defineProperty(Turtle, 'dir', {
 
 //init Turtle in (0,0)
 let flash = new Turtle(0,0);
-flash.forward(3);
-console.log(flash.getPosition);
-flash.dir = 270;
-flash.forward(3);
-console.log(flash.getPosition);
+console.log('Tutrtle was born. 🐢')
 
-// flash.x = 1;
-// flash.y = 2;
-// console.log(flash.getPosition);
-// console.log(flash.getDirection);
+flash.forward(3);
+console.log('Moved forward 3 to east');
+console.log(`Tutrle current position is: ${flash.getPosition}`);
+
+flash.right();
+console.log('Turned right to south');
+
+flash.forward(2);
+console.log('Moved forward 2');
+console.log(`Tutrle current position is: ${flash.getPosition}`);
+
+flash.right();
+console.log('Turned right to west');
+
+flash.forward(3);
+console.log('Moved forward 3');
+console.log(`Tutrle current position is: ${flash.getPosition}`);
+
+flash.left();
+console.log('Turned left to south');
+
+flash.forward(3);
+console.log('Moved forward 3');
+console.log(`Tutrle current position is: ${flash.getPosition}`);
 
 
