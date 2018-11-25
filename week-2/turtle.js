@@ -6,7 +6,7 @@
 // 	2 + + + o +
 // 	3 + + + x +
 // 	4 + + + + +
-// }
+//
 
 
 class Turtle {
@@ -14,6 +14,7 @@ class Turtle {
 		this.x = x;
         this.y = y;
         this.dir = 0;
+        this.track = [];
     }
     get getPosition(){
         return `${this.x},${this.y}`;
@@ -23,20 +24,20 @@ class Turtle {
     }
     forward(n){
         this.n = n;
-        
+        this.track.push(this.getPosition);
 		switch(this.dir) {
             case 90:
-            return this.y = rangeCheckMinus(this.y,n);
+            return this.y = rangeCheck(this.y,n,this.dir);
             break;
             case 180:
-            return this.x = rangeCheckMinus(this.x,n);
+            return this.x = rangeCheck(this.x,n,this.dir);
             break;
             case 270:
-            return this.y = rangeCheckPlus(this.y,n);
+            return this.y = rangeCheck(this.y,n,this.dir);
             break;
-
+            
             default: // 0
-            return this.x = rangeCheckPlus(this.x,n);
+            return this.x = rangeCheck(this.x,n,this.dir);
         }
     }
 
@@ -75,16 +76,22 @@ class Turtle {
         }
     }
 
+    allPoints() {
+        //write last poin to track array
+        this.track.push(this.getPosition);
+        return this.track;
+    }
+
 };
 
 let fieldRange = 5;
-function rangeCheckPlus (start,next){
-    return (0 <= start + next && start + next < fieldRange) ? start + next : 'Out Of Range!'
-}
-
-function rangeCheckMinus (start,next){
-    return (0 <= start - next && start - next < fieldRange) ? start - next : 'Out Of Range!'
-}
+function rangeCheck(start,next,dir){
+    if (dir === 90 || dir === 180){
+        return (0 <= start - next && start - next < fieldRange) ? start - next : 'Out Of Range!'
+    }else{
+        return (0 <= start + next && start + next < fieldRange) ? start + next : 'Out Of Range!'
+    }
+};
 
 // variable setter x
 Object.defineProperty(Turtle, 'x', {
@@ -101,7 +108,10 @@ Object.defineProperty(Turtle, 'dir', {
     value: 0,
     writable: true
 });
-
+Object.defineProperty(Turtle, 'track', {
+    value: [],
+    writable: true
+});
 // ----------< TEST >------------ //
 
 //init Turtle in (0,0)
@@ -133,4 +143,5 @@ flash.forward(3);
 console.log('Moved forward 3');
 console.log(`Tutrle current position is: ${flash.getPosition}`);
 
-
+console.log("===<<<Full turtle's path>>>===");
+console.log(flash.allPoints());
