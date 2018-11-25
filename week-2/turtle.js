@@ -17,7 +17,8 @@ class Turtle {
         this.track = [];
     }
     get getPosition(){
-        return `${this.x},${this.y}`;
+        let point = [];
+        return point = [this.x, this.y];
     }
     get getDirection(){
         return `${this.dir}`;
@@ -81,10 +82,33 @@ class Turtle {
         this.track.push(this.getPosition);
         return this.track;
     }
-
+    print(){
+        console.log(createField(5));
+    }
 };
 
 let fieldRange = 5;
+function createField(fieldRange){
+    let row = ['   '];
+    let field = [];
+    for (let i = 0; i < fieldRange; i++){
+        row.push(i + ' ');
+    }
+    field.push(row); // 0 row - first element of field
+    
+
+    for(let j = 0; j < fieldRange; j++){
+        row = [];
+        for (let i = 0; i < fieldRange; i++){
+            row.push(' +');
+        }
+        row.unshift(' ' + j);
+        field.push(row); 
+    }
+
+    return field;
+}
+
 function rangeCheck(start,next,dir){
     if (dir === 90 || dir === 180){
         return (0 <= start - next && start - next < fieldRange) ? start - next : 'Out Of Range!'
@@ -92,6 +116,7 @@ function rangeCheck(start,next,dir){
         return (0 <= start + next && start + next < fieldRange) ? start + next : 'Out Of Range!'
     }
 };
+
 
 // variable setter x
 Object.defineProperty(Turtle, 'x', {
@@ -145,3 +170,6 @@ console.log(`Tutrle current position is: ${flash.getPosition}`);
 
 console.log("===<<<Full turtle's path>>>===");
 console.log(flash.allPoints());
+
+console.log("===<<<   PRINT FIELD    >>>===\n");
+flash.print();
