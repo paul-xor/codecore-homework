@@ -15,10 +15,11 @@ class Turtle {
         this.y = y;
         this.dir = 0;
         this.track = [];
+        this.fieldRange = 5;
     }
     get getPosition(){
         let point = [];
-        return point = [this.x, this.y];
+        return point = [this.x,this.y];
     }
     get getDirection(){
         return `${this.dir}`;
@@ -28,17 +29,17 @@ class Turtle {
         this.track.push(this.getPosition);
 		switch(this.dir) {
             case 90:
-            return this.y = rangeCheck(this.y,n,this.dir);
+            return this.y = rangeCheck(this.y , n, this.dir, this.fieldRange);
             break;
             case 180:
-            return this.x = rangeCheck(this.x,n,this.dir);
+            return this.x = rangeCheck(this.x, n, this.dir, this.fieldRange);
             break;
             case 270:
-            return this.y = rangeCheck(this.y,n,this.dir);
+            return this.y = rangeCheck(this.y, n, this.dir, this.fieldRange);
             break;
             
             default: // 0
-            return this.x = rangeCheck(this.x,n,this.dir);
+            return this.x = rangeCheck(this.x, n, this.dir, this.fieldRange);
         }
     }
 
@@ -83,33 +84,47 @@ class Turtle {
         return this.track;
     }
     print(){
-        console.log(createField(5));
+        const fieldToPrint = createField(this.fieldRange,this.track);
+        // console.log(fieldToPrint);
+        for (let i = 0; i < this.fieldRange + 1; i++){
+            let str = '';
+            for (let j = 0; j < this.fieldRange + 1; j++){
+                str += fieldToPrint[i][j];
+            }
+            console.log(str + '\n');
+        }
     }
+
 };
 
-let fieldRange = 5;
-function createField(fieldRange){
-    let row = ['   '];
+
+function createField(fieldRange,track){
+
+    let row = ['       '];
     let field = [];
     for (let i = 0; i < fieldRange; i++){
-        row.push(i + ' ');
+        row.push(i + '   ');
     }
     field.push(row); // 0 row - first element of field
-    
 
     for(let j = 0; j < fieldRange; j++){
         row = [];
         for (let i = 0; i < fieldRange; i++){
-            row.push(' +');
+            row.push('   +');
         }
-        row.unshift(' ' + j);
+        row.unshift('   ' + j);
         field.push(row); 
     }
-
+    // populate field with points
+    track.forEach(function(point){
+        let x = parseInt(point.slice(0,-1)) + 1;
+        let y = parseInt(point.slice(1)) + 1;
+        field[y][x] = "   \u26F3";
+    });
     return field;
 }
 
-function rangeCheck(start,next,dir){
+function rangeCheck(start,next,dir,fieldRange){
     if (dir === 90 || dir === 180){
         return (0 <= start - next && start - next < fieldRange) ? start - next : 'Out Of Range!'
     }else{
@@ -164,12 +179,12 @@ console.log(`Tutrle current position is: ${flash.getPosition}`);
 flash.left();
 console.log('Turned left to south');
 
-flash.forward(3);
-console.log('Moved forward 3');
-console.log(`Tutrle current position is: ${flash.getPosition}`);
+flash.forward(2);
+console.log('Moved forward 2');
+console.log(`Tutrle current position is: ${flash.getPosition}\n`);
 
-console.log("===<<<Full turtle's path>>>===");
+console.log("===<<<Full turtle's path>>>===\n");
 console.log(flash.allPoints());
-
+console.log("\n");
 console.log("===<<<   PRINT FIELD    >>>===\n");
 flash.print();
