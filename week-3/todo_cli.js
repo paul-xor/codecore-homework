@@ -36,7 +36,7 @@ function menu(){
     rl.prompt();
 
     rl.question('', answer =>{
-            switch(answer) {
+            switch(answer.trim()) {
         case 'v':
             view();
             break;
@@ -62,14 +62,10 @@ function menu(){
 
 function view(){
     console.log('Your current list:');
-    
     pointsArr = createObjList(points);
-    console.log(pointsArr);
-    console.log(pointsArr.length);
-    console.log('\n');
     for (let point of pointsArr){
         let str = "";
-        str = point.id + " " + point.done + " " + point.task;
+        str = `${point.id} ${point.done? "[x]" : "[ ]"} ${point.task}`;
         console.log(str);
     }
     menu();
