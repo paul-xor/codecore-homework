@@ -78,17 +78,19 @@ function listData(){
         tempArr2 = createObjList(points);
         pointsArr = [];
         pointsArr = tempArr1.concat(tempArr2);
-        
-        let j = tempArr1.length;
-        for (let i = j; i < pointsArr.length; i++){
-            pointsArr[i].id = i;
-        }
+        updId(tempArr1.length,pointsArr);
     }
 
     for (let point of pointsArr){
         let str = "";
         str = `> ${point.id}  ${point.done? "[\x1b[32m✓\x1b[0m]" : "[ ]"} ${point.task}`;
         console.log(str);
+    }
+};
+
+function updId(intStart, arr){
+    for(let i = intStart; i < arr.length; i++){
+        arr[i].id = i;
     }
 };
 
@@ -142,6 +144,7 @@ function deLete(){
             let marked = parseInt(answer);
             let toDelete = pointsArr.splice([marked],1);
             console.log(`Following task to "\x1b[37m"DELETE"\x1b[0m": ${[toDelete]}`);
+            updId(0,pointsArr);
 
             listData();
             menu();
