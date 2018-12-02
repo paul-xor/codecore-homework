@@ -12,7 +12,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-let = {}; // obj to store points
+let pointsArr = [];
 let points = [];
 
 
@@ -53,7 +53,7 @@ function menu(){
             quit();
             break;
         default:
-            console.log("Wrong input!");
+            console.log("\x1b[33m","WRONG INPUT!","\x1b[0m");
             menu();
     };
     });
@@ -61,14 +61,18 @@ function menu(){
 };
 
 function view(){
-    console.log('Your current list:');
+    console.log("\x1b[33m",'\u2630 Your current list:',"\x1b[0m");
+    listData();
+    menu();
+};
+
+function listData(){
     pointsArr = createObjList(points);
     for (let point of pointsArr){
         let str = "";
-        str = `${point.id} ${point.done? "[x]" : "[ ]"} ${point.task}`;
+        str = `${point.id} ${point.done? "[✓]" : "[ ]"} ${point.task}`;
         console.log(str);
     }
-    menu();
 };
 
 function createObjList(array) {
@@ -99,8 +103,35 @@ function add(){
     
 };
 
+// function markPoint(number){
+    
+//     console.log(`${number}, typeof: ${typeof number}`);
+//     console.log(`${pointsArr[number].id} - this debugging string, if 0 - false, 1 - true`);
+//     pointsArr[number].id = true;
+//     console.log(`${pointsArr[number].id} - this debugging string, if 0 - false, 1 - true`);
+    
+// };
+
 function complete(){
-    console.log('complete selected');
+    listData();
+    rl.question("Mark completed '✓', please enter the number. \n >", answer => {
+        
+        if(answer.trim()){
+            let marked = parseInt(answer);
+            console.log(`${typeof marked} value: "\x1b[32m"${marked}"\x1b[0m"`);
+            console.log(pointsArr[marked].done);
+            
+            pointsArr[marked].done = true;
+            console.log(pointsArr[marked].done);
+            console.log('Results ^^^^^^^^^^^^');
+            console.log(pointsArr);
+            
+            // parseInt(marked);
+            
+            //listData();
+            menu();
+        }
+    });
 };
 
 function deLete(){
@@ -108,7 +139,7 @@ function deLete(){
 };
 function quit(){
     rl.close();
-    console.log('See you soon. 🖖🏽');
+    console.log("\x1b[32m",'See you soon. 🖖🏽',"\x1b[0m");
 };
 
 const run = fullViewConsole();
