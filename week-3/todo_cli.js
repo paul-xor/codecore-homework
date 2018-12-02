@@ -18,7 +18,7 @@ let points = [];
 
 function oneLineConsole(){
     console.log();
-    console.log('(v) View | (n) New | (cX) Complete | (dX) Delete | (q) Quit');
+    console.log('\x1b[34m(v) View | (n) New | (cX) Complete | (dX) Delete | (q) Quit \x1b[0m');
     console.log();
 };
 
@@ -62,15 +62,32 @@ function menu(){
 
 function view(){
     console.log("\x1b[33m",'\u2630 Your current list:',"\x1b[0m");
+    console.log("# ID Box  Tasks: ")
     listData();
     menu();
 };
 
 function listData(){
-    pointsArr = createObjList(points);
+
+    if(pointsArr.length === 0){
+        pointsArr = createObjList(points);
+    }else{
+        let tempArr1 = [];
+        let tempArr2 = [];
+        tempArr1 = pointsArr;
+        tempArr2 = createObjList(points);
+        pointsArr = [];
+        pointsArr = tempArr1.concat(tempArr2);
+        
+        let j = tempArr1.length;
+        for (let i = j; i < pointsArr.length; i++){
+            pointsArr[i].id = i;
+        }
+    }
+
     for (let point of pointsArr){
         let str = "";
-        str = `${point.id} ${point.done? "[✓]" : "[ ]"} ${point.task}`;
+        str = `> ${point.id}  ${point.done? "[\x1b[32m✓\x1b[0m]" : "[ ]"} ${point.task}`;
         console.log(str);
     }
 };
@@ -83,60 +100,55 @@ function createObjList(array) {
         const done = false;
       updated.push({ id, task, done });
     }
+    points = [];
     return updated;
   }
 
-function collectData(data){
-    if(data){
-        points.push(data); 
-    }; 
-};
 
 function add(){
     console.log('Enter your point(s):');
     rl.question('>',answer => {
         if(answer.trim()){
-            collectData(answer);
+            points.push(answer); 
             menu();
         }
     });
     
 };
-
-// function markPoint(number){
-    
-//     console.log(`${number}, typeof: ${typeof number}`);
-//     console.log(`${pointsArr[number].id} - this debugging string, if 0 - false, 1 - true`);
-//     pointsArr[number].id = true;
-//     console.log(`${pointsArr[number].id} - this debugging string, if 0 - false, 1 - true`);
-    
-// };
 
 function complete(){
     listData();
     rl.question("Mark completed '✓', please enter the number. \n >", answer => {
         
         if(answer.trim()){
-            let marked = parseInt(answer);
-            console.log(`${typeof marked} value: "\x1b[32m"${marked}"\x1b[0m"`);
-            console.log(pointsArr[marked].done);
-            
-            pointsArr[marked].done = true;
-            console.log(pointsArr[marked].done);
-            console.log('Results ^^^^^^^^^^^^');
-            console.log(pointsArr);
-            
-            // parseInt(marked);
-            
-            //listData();
-            menu();
+            if (answer.length > 2){
+                console.log("WRONG INPUT or operation is not supported.");
+                menu();
+            }else{
+                let marked = parseInt(answer);
+                pointsArr[marked].done = true;
+                listData();
+                menu();
+            }
         }
     });
 };
 
 function deLete(){
-    console.log('Delete selected');
+    listData();
+    rl.question("Enter the number to DELETE task from the list. \n >", answer => {
+        
+        if(answer.trim()){
+            let marked = parseInt(answer);
+            let toDelete = pointsArr.splice([marked],1);
+            console.log(`Following task to "\x1b[37m"DELETE"\x1b[0m": ${[toDelete]}`);
+
+            listData();
+            menu();
+        }
+    });
 };
+
 function quit(){
     rl.close();
     console.log("\x1b[32m",'See you soon. 🖖🏽',"\x1b[0m");
