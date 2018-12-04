@@ -25,8 +25,8 @@ router.post("/sign_out", (req, res) => {
   res.redirect("/");
 });
 
-router.get("*", (req,res) =>{
-  res.send(" <strong>404 Page not found.</strong> ");
-});
+// router.get("*", (req,res) =>{
+//   res.send(" <strong>404 Page not found.</strong> ");
+// });
 
 module.exports = router;

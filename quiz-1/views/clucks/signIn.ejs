@@ -1,0 +1,22 @@
+<%- include("../partials/header") %>
+
+<form action="/sign_in" method = "POST">
+
+    <div class="form-group">
+        <form action="sign_in" method="POST">
+
+            <label for="username"><b>Username</b></label>
+            <input
+                type="text"
+                class="form-control"
+                name="username"
+                placeholder="What is Your name?"
+            >
+            <button class="btn btn-outline-secondary mt-2" type="submit">Sign In</button>
+        </form>
+    </div>
+   
+</form>
+
+
+<%- include("../partials/footer") %>
